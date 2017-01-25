@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Wed Jan 25 15:51:18 2017 Ronan Boiteau
+** Last update Wed Jan 25 15:57:00 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -36,6 +36,12 @@ void		show_alloc_mem()
     }
 }
 
+/*
+** Free the mem chunk given as parameter
+** Freeing means:
+** - Releasing memory with sbrk() if the chunk is at the end of the mem map
+** - Setting the chunk's is_free variable to true otherwise
+*/
 void		get_rid_of_him(t_chunk *tmp)
 {
   if (tmp->next == NULL)
@@ -59,7 +65,6 @@ void		my_free(void *ptr)
   tmp = heap_start;
   while (tmp != NULL)
     {
-      printf("%p vs. %p\n", tmp->address, ptr);
       if (tmp->address == ptr)
 	return (get_rid_of_him(tmp));
       tmp = tmp->next;
