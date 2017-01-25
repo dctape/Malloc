@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Wed Jan 25 13:48:14 2017 Ronan Boiteau
+** Last update Wed Jan 25 15:51:18 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -36,16 +36,34 @@ void		show_alloc_mem()
     }
 }
 
+void		get_rid_of_him(t_chunk *tmp)
+{
+  if (tmp->next == NULL)
+    sbrk((tmp->size + sizeof(t_chunk)) * -1);
+  else
+    {
+      tmp->is_free = true;
+      if (tmp->prev->is_free == true)
+	/* merge with prev */;
+      if (tmp->next->is_free == true)
+	/* merge with next */;
+      /* test if the chunk is at the end of the mem map after merge */
+    }
+  return ;
+}
+
 void		my_free(void *ptr)
 {
-  (void)ptr;
-  /* IF ptr is NOT at the end of the mem map */
-  /* set chunk->is_available to true */
-  /* merge with the prev & next chunks if they are free */
-  /* test if the chunk is at the end of the mem map after merge */
-  /* ELSE */
-  /* remove the chunk from the mem map */
-  /* release memory with sbrk() */
+  t_chunk	*tmp;
+
+  tmp = heap_start;
+  while (tmp != NULL)
+    {
+      printf("%p vs. %p\n", tmp->address, ptr);
+      if (tmp->address == ptr)
+	return (get_rid_of_him(tmp));
+      tmp = tmp->next;
+    }
 }
 
 /*
@@ -54,24 +72,65 @@ void		my_free(void *ptr)
 **
 ** Warning: Will be moved to another file, should not access heap_start global variable
 */
-t_chunk		*find_free_chunk(size_t size, t_chunk *heap_start)
+t_chunk		*find_free_chunk(size_t const size, t_chunk *tmp)
 {
-  if (heap_start == NULL)
+  if (tmp == NULL)
     return (NULL);
-  while (heap_start->next != NULL)
+  while (tmp->next != NULL)
     {
-      if (heap_start->is_free == true && heap_start->size >= size)
-	return (heap_start);
-      heap_start = heap_start->next;
+      if (tmp->is_free == true && tmp->size >= size)
+	return (tmp);
+      tmp = tmp->next;
     }
   return (NULL);
+}
+
+void		*init_memory_map(size_t const size)
+{
+  t_chunk	*new_memory_map;
+  void		*address;
+
+  new_memory_map = sbrk(0);
+  if (sbrk(sizeof(t_chunk)) == (void *)-1)
+    return (NULL);
+  if ((address = sbrk(size)) == (void *)-1)
+    return (NULL);
+  new_memory_map->prev = NULL;
+  new_memory_map->next = NULL;
+  new_memory_map->size = size;
+  new_memory_map->address = address;
+  return (new_memory_map);
+}
+
+/*
+** Warning: Will be moved to another file, should not access heap_start global variable
+*/
+void		*create_chunk(size_t const size, t_chunk *tmp)
+{
+  t_chunk	*heap_start;
+
+  heap_start = tmp;
+  while (tmp->next != NULL)
+    tmp = tmp->next;
+  /* call sbrk() to increase the amount of heap memory by (size + sizeof(t_chunk)) */
+  /* create a chunk of requested size */
+  /* append it to the end of the memory map */
+  return (heap_start);
 }
 
 void		*my_malloc(size_t size)
 {
   void		*old_brk;
-  t_chunk	*chunk; /* Doubly linked list the represents the memory */
+  t_chunk	*chunk; /* Doubly linked list that represents the memory */
 
+  old_brk = NULL;
+  if (heap_start == NULL)
+    {
+      if ((heap_start = init_memory_map(size)) == NULL)
+	return (NULL);
+      else
+	return (heap_start->address);
+    }
   if ((chunk = find_free_chunk(size, heap_start)) != NULL)
     {
       /* USE FREE CHUNK */
@@ -79,13 +138,7 @@ void		*my_malloc(size_t size)
       /* create a new chunk with the remaining mem */
       /* no call to sbrk() */
     }
-  else
-    {
-      /* CREATE NEW CHUNK */
-      /* call sbrk() to increase the amount of heap memory by (size + sizeof(t_chunk)) */
-      /* create a chunk of requested size */
-      /* append it to the end of the memory map */
-    }
-  old_brk = sbrk(size);
+  else if ((heap_start = create_chunk(size, heap_start)) == NULL)
+    return (NULL);
   return (old_brk);
 }
