@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Wed Jan 25 15:57:00 2017 Ronan Boiteau
+** Last update Wed Jan 25 23:33:30 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -42,16 +42,25 @@ void		show_alloc_mem()
 ** - Releasing memory with sbrk() if the chunk is at the end of the mem map
 ** - Setting the chunk's is_free variable to true otherwise
 */
-void		get_rid_of_him(t_chunk *tmp)
+void		free_this_chunk(t_chunk *tmp)
 {
   if (tmp->next == NULL)
-    sbrk((tmp->size + sizeof(t_chunk)) * -1);
+    {
+      /* if (tmp->prev != NULL) */
+      /* 	tmp->prev->next = NULL; */
+      sbrk((tmp->size + sizeof(t_chunk)) * -1);
+    }
   else
     {
       tmp->is_free = true;
-      if (tmp->prev->is_free == true)
-	/* merge with prev */;
-      if (tmp->next->is_free == true)
+      while (tmp->prev != NULL && tmp->prev->is_free != false)
+	{
+	  /* merge with prev */;
+	  /* tmp->prev->size += tmp->size; */
+	  /* tmp->prev->next = tmp->next; */
+	  /* tmp->next->prev = tmp->prev; */
+	}
+      while (tmp->next != NULL && tmp->next->is_free != false)
 	/* merge with next */;
       /* test if the chunk is at the end of the mem map after merge */
     }
@@ -65,8 +74,17 @@ void		my_free(void *ptr)
   tmp = heap_start;
   while (tmp != NULL)
     {
+      /* printf("%p vs. %p\n", tmp->address, ptr); */
+      /* if (tmp && tmp->prev) */
+      /* 	{ */
+      /* 	  /\* tmp->prev = heap_start; /\\* Wtf?! It should already be a pointer to heap_start!!! *\\/ *\/ */
+      /* 	  printf("%p\n", tmp->prev->address); */
+      /* 	} */
       if (tmp->address == ptr)
-	return (get_rid_of_him(tmp));
+	{
+	  printf("Found matching chunk!\n");
+	  return (free_this_chunk(tmp));
+	}
       tmp = tmp->next;
     }
 }
@@ -100,6 +118,7 @@ void		*init_memory_map(size_t const size)
     return (NULL);
   if ((address = sbrk(size)) == (void *)-1)
     return (NULL);
+  new_memory_map->is_free = false;
   new_memory_map->prev = NULL;
   new_memory_map->next = NULL;
   new_memory_map->size = size;
@@ -112,29 +131,32 @@ void		*init_memory_map(size_t const size)
 */
 void		*create_chunk(size_t const size, t_chunk *tmp)
 {
-  t_chunk	*heap_start;
+  void		*address;
 
-  heap_start = tmp;
   while (tmp->next != NULL)
     tmp = tmp->next;
-  /* call sbrk() to increase the amount of heap memory by (size + sizeof(t_chunk)) */
-  /* create a chunk of requested size */
-  /* append it to the end of the memory map */
-  return (heap_start);
+  tmp->next = sbrk(0);
+  if (sbrk(sizeof(t_chunk)) == (void *)-1)
+    return (NULL);
+  if ((address = sbrk(size)) == (void *)-1)
+    return (NULL);
+  tmp->next->is_free = false;
+  tmp->next->prev = NULL; /* Every variable is correctly stored when calling free() BUT not this one. How is it possible? */
+  tmp->next->next = NULL;
+  tmp->next->size = size;
+  tmp->next->address = address;
+  return (tmp->next);
 }
 
 void		*my_malloc(size_t size)
 {
-  void		*old_brk;
   t_chunk	*chunk; /* Doubly linked list that represents the memory */
 
-  old_brk = NULL;
   if (heap_start == NULL)
     {
       if ((heap_start = init_memory_map(size)) == NULL)
 	return (NULL);
-      else
-	return (heap_start->address);
+      return (heap_start->address);
     }
   if ((chunk = find_free_chunk(size, heap_start)) != NULL)
     {
@@ -143,7 +165,11 @@ void		*my_malloc(size_t size)
       /* create a new chunk with the remaining mem */
       /* no call to sbrk() */
     }
-  else if ((heap_start = create_chunk(size, heap_start)) == NULL)
-    return (NULL);
-  return (old_brk);
+  else
+    {
+      if ((chunk = create_chunk(size, heap_start)) == NULL)
+	return (NULL);
+      return (chunk->address);
+    }
+  return (NULL);
 }
