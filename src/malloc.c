@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Mon Jan 30 18:07:58 2017 Ronan Boiteau
+** Last update Mon Jan 30 18:10:23 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -117,16 +117,14 @@ void		*init_memory_map(size_t const size)
   void		*address;
 
   new_memory_map = sbrk(0);
-  if (sbrk(sizeof(t_chunk)) == (void *)-1)
-    return (NULL);
-  if ((address = sbrk(size)) == (void *)-1)
+  if ((address = sbrk(size + sizeof(t_chunk))) == (void *)-1)
     return (NULL);
   new_memory_map->is_free = false;
   new_memory_map->prev = NULL;
   new_memory_map->next = NULL;
   new_memory_map->size = size;
   new_memory_map->node_size = sizeof(t_chunk);
-  new_memory_map->address = address;
+  new_memory_map->address = address + sizeof(t_chunk);
   return (new_memory_map);
 }
 
@@ -140,16 +138,14 @@ void		*create_chunk(size_t const size, t_chunk *tmp)
   while (tmp->next != NULL)
     tmp = tmp->next;
   tmp->next = sbrk(0);
-  if (sbrk(sizeof(t_chunk)) == (void *)-1)
-    return (NULL);
-  if ((address = sbrk(size)) == (void *)-1)
+  if ((address = sbrk(size + sizeof(t_chunk))) == (void *)-1)
     return (NULL);
   tmp->next->is_free = false;
   tmp->next->prev = tmp;
   tmp->next->next = NULL;
   tmp->next->size = size;
   tmp->next->node_size = sizeof(t_chunk);
-  tmp->next->address = address;
+  tmp->next->address = address + sizeof(t_chunk);
   return (tmp->next);
 }
 
