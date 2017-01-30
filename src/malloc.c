@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Mon Jan 30 17:37:40 2017 Ronan Boiteau
+Last update Mon Jan 30 17:41:06 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -52,20 +52,18 @@ void		free_this_chunk(t_chunk *tmp)
   tmp->is_free = true;
   while (tmp->prev != NULL && tmp->prev->is_free != false)
     {
-      /* merge with prev */;
+      /* printf("MERGING WITH PREV\n"); */
       tmp->prev->size += tmp->size + sizeof(t_chunk);
       tmp->prev->next = tmp->next;
       if (tmp->next != NULL)
 	tmp->next->prev = tmp->prev;
       tmp = tmp->prev;
-      printf("MERGING WITH PREV\n");
     }
   while (tmp->next != NULL && tmp->next->is_free != false)
     {
-      /* merge with next */;
+      /* printf("MERGING WITH NEXT\n"); */
       tmp->size += tmp->next->size + sizeof(t_chunk);
       tmp->next = tmp->next->next;
-      printf("MERGING WITH NEXT\n");
     }
   if (tmp->next == NULL)
     {

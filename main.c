@@ -23,12 +23,12 @@ int		main(void)
   str[3] = '\0';
   *lelel = 42;
   printf("Before first free\t%p\n", sbrk(0));
-  my_free(lel);
-  printf("After first free\t%p\n", sbrk(0));
   my_free(lelel);
-  printf("After second free\t%p\n", sbrk(0));
+  printf("After first free\t%p\n", sbrk(0));
   my_free(str);
+  printf("After second free\t%p\n", sbrk(0));
   /* show_alloc_mem(); */
+  my_free(lel);
   printf("After third free\t%p\n", sbrk(0));
   return (0);
 }
