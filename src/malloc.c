@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-Last update Mon Jan 30 17:41:06 2017 Ronan Boiteau
+** Last update Mon Jan 30 18:07:58 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -53,7 +53,8 @@ void		free_this_chunk(t_chunk *tmp)
   while (tmp->prev != NULL && tmp->prev->is_free != false)
     {
       /* printf("MERGING WITH PREV\n"); */
-      tmp->prev->size += tmp->size + sizeof(t_chunk);
+      tmp->prev->size += tmp->size;
+      tmp->prev->node_size += sizeof(t_chunk);
       tmp->prev->next = tmp->next;
       if (tmp->next != NULL)
 	tmp->next->prev = tmp->prev;
@@ -62,14 +63,15 @@ void		free_this_chunk(t_chunk *tmp)
   while (tmp->next != NULL && tmp->next->is_free != false)
     {
       /* printf("MERGING WITH NEXT\n"); */
-      tmp->size += tmp->next->size + sizeof(t_chunk);
+      tmp->size += tmp->next->size;
+      tmp->node_size += sizeof(t_chunk);
       tmp->next = tmp->next->next;
     }
   if (tmp->next == NULL)
     {
       if (tmp->prev != NULL)
 	tmp->prev->next = NULL;
-      sbrk((tmp->size + sizeof(t_chunk)) * -1);
+      sbrk((tmp->size + tmp->node_size) * -1);
     }
 }
 
@@ -123,6 +125,7 @@ void		*init_memory_map(size_t const size)
   new_memory_map->prev = NULL;
   new_memory_map->next = NULL;
   new_memory_map->size = size;
+  new_memory_map->node_size = sizeof(t_chunk);
   new_memory_map->address = address;
   return (new_memory_map);
 }
@@ -145,6 +148,7 @@ void		*create_chunk(size_t const size, t_chunk *tmp)
   tmp->next->prev = tmp;
   tmp->next->next = NULL;
   tmp->next->size = size;
+  tmp->next->node_size = sizeof(t_chunk);
   tmp->next->address = address;
   return (tmp->next);
 }
@@ -164,7 +168,7 @@ void		*my_malloc(size_t size)
       /* USE FREE CHUNK */
       /* resize old chunk to the requested size */
       /* create a new chunk with the remaining mem */
-      /* no call to sbrk() */
+      /* no call to sbrk()! */
     }
   else
     {
