@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Wed Jan 25 23:33:30 2017 Ronan Boiteau
+** Last update Mon Jan 30 15:24:57 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -46,8 +46,8 @@ void		free_this_chunk(t_chunk *tmp)
 {
   if (tmp->next == NULL)
     {
-      /* if (tmp->prev != NULL) */
-      /* 	tmp->prev->next = NULL; */
+      if (tmp->prev != NULL)
+      	tmp->prev->next = NULL;
       sbrk((tmp->size + sizeof(t_chunk)) * -1);
     }
   else
@@ -71,6 +71,8 @@ void		my_free(void *ptr)
 {
   t_chunk	*tmp;
 
+  printf("%p\n", heap_start->next);
+  printf("%p\n", heap_start->next->prev);
   tmp = heap_start;
   while (tmp != NULL)
     {
@@ -169,6 +171,8 @@ void		*my_malloc(size_t size)
     {
       if ((chunk = create_chunk(size, heap_start)) == NULL)
 	return (NULL);
+      printf("%p\n", heap_start->next);
+      printf("%p\n", heap_start->next->prev);
       return (chunk->address);
     }
   return (NULL);
