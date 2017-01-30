@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Mon Jan 30 15:24:57 2017 Ronan Boiteau
+** Last update Mon Jan 30 17:37:40 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -32,6 +32,11 @@ void		show_alloc_mem()
       if (tmp->is_free == false)
 	printf("%p - %p : %zu bytes\n", tmp->address,
 	       tmp->address + tmp->size, tmp->size); /* that addition though */
+      else
+	{
+	  printf("FREE BLOCK\n");
+	  printf("%p\n", tmp);
+	}
       tmp = tmp->next;
     }
 }
@@ -44,44 +49,40 @@ void		show_alloc_mem()
 */
 void		free_this_chunk(t_chunk *tmp)
 {
+  tmp->is_free = true;
+  while (tmp->prev != NULL && tmp->prev->is_free != false)
+    {
+      /* merge with prev */;
+      tmp->prev->size += tmp->size + sizeof(t_chunk);
+      tmp->prev->next = tmp->next;
+      if (tmp->next != NULL)
+	tmp->next->prev = tmp->prev;
+      tmp = tmp->prev;
+      printf("MERGING WITH PREV\n");
+    }
+  while (tmp->next != NULL && tmp->next->is_free != false)
+    {
+      /* merge with next */;
+      tmp->size += tmp->next->size + sizeof(t_chunk);
+      tmp->next = tmp->next->next;
+      printf("MERGING WITH NEXT\n");
+    }
   if (tmp->next == NULL)
     {
       if (tmp->prev != NULL)
-      	tmp->prev->next = NULL;
+	tmp->prev->next = NULL;
       sbrk((tmp->size + sizeof(t_chunk)) * -1);
     }
-  else
-    {
-      tmp->is_free = true;
-      while (tmp->prev != NULL && tmp->prev->is_free != false)
-	{
-	  /* merge with prev */;
-	  /* tmp->prev->size += tmp->size; */
-	  /* tmp->prev->next = tmp->next; */
-	  /* tmp->next->prev = tmp->prev; */
-	}
-      while (tmp->next != NULL && tmp->next->is_free != false)
-	/* merge with next */;
-      /* test if the chunk is at the end of the mem map after merge */
-    }
-  return ;
 }
 
 void		my_free(void *ptr)
 {
   t_chunk	*tmp;
 
-  printf("%p\n", heap_start->next);
-  printf("%p\n", heap_start->next->prev);
   tmp = heap_start;
   while (tmp != NULL)
     {
-      /* printf("%p vs. %p\n", tmp->address, ptr); */
-      /* if (tmp && tmp->prev) */
-      /* 	{ */
-      /* 	  /\* tmp->prev = heap_start; /\\* Wtf?! It should already be a pointer to heap_start!!! *\\/ *\/ */
-      /* 	  printf("%p\n", tmp->prev->address); */
-      /* 	} */
+      printf("%p vs. %p\n", tmp->address, ptr);
       if (tmp->address == ptr)
 	{
 	  printf("Found matching chunk!\n");
@@ -143,7 +144,7 @@ void		*create_chunk(size_t const size, t_chunk *tmp)
   if ((address = sbrk(size)) == (void *)-1)
     return (NULL);
   tmp->next->is_free = false;
-  tmp->next->prev = NULL; /* Every variable is correctly stored when calling free() BUT not this one. How is it possible? */
+  tmp->next->prev = tmp;
   tmp->next->next = NULL;
   tmp->next->size = size;
   tmp->next->address = address;
@@ -171,8 +172,6 @@ void		*my_malloc(size_t size)
     {
       if ((chunk = create_chunk(size, heap_start)) == NULL)
 	return (NULL);
-      printf("%p\n", heap_start->next);
-      printf("%p\n", heap_start->next->prev);
       return (chunk->address);
     }
   return (NULL);
