@@ -36,6 +36,12 @@ int		main(void)
   printf("After first malloc\t%p\n", sbrk(0));
   lel[0] = 102;
   lel[1] = 3102;
+  printf("%i - %i\n", lel[0], lel[1]);
+  lel = realloc(lel, sizeof(int) * 4);
+  printf("After first realloc\t%p\n", sbrk(0));
+  lel[2] = 42;
+  lel[3] = 42;
+  printf("%i - %i - %i - %i\n", lel[0], lel[1], lel[2], lel[3]);
   printf("Before first free\t%p\n", sbrk(0));
   free(lel);
   printf("After first free\t%p\n", sbrk(0));

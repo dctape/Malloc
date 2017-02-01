@@ -5,31 +5,41 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Wed Feb  1 11:00:00 2017 Ronan Boiteau
+** Last update Wed Feb  1 11:24:40 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 
 t_chunk		*heap_start = NULL;
 
-/* void		chunkcpy(t_chunk *dest, t_chunk *src) */
-/* { */
-/*   return ; */
-/* } */
+t_chunk		*find_block(t_chunk *tmp, void *ptr)
+{
+  while (tmp != NULL)
+    {
+      if (tmp->address == ptr)
+	return (tmp);
+      tmp = tmp->next;
+    }
+  return (NULL);
+}
 
 void		*realloc(void *ptr, size_t size)
 {
-  void		*new;
+  void		*new_ptr;
+  t_chunk	*old;
+  t_chunk	*new;
 
   /* check if we can merge with neighboors instead of re-malloc-ing a chunk */
-  new = malloc(size);
-  if (ptr == NULL)
-    return (new);
-  /* chunkcpy(new, ptr); */
-  free(ptr);
-  return (new);
+  new_ptr = malloc(size);
+  old = find_block(heap_start, ptr);
+  new = find_block(heap_start, new_ptr);
+  if (old == NULL || new == NULL)
+    return (new_ptr);
+  memcpy(new->address, old->address, old->size);
+  return (new_ptr);
 }
 
 /* void		show_alloc_mem() */
