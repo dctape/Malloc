@@ -9,13 +9,13 @@ int		main(void)
   char		*str;
 
   printf("Before malloc\t\t%p\n", sbrk(0));
-  lel = my_malloc(sizeof(int) * 2);
+  lel = malloc(sizeof(int) * 2);
   printf("After first malloc\t%p\n", sbrk(0));
-  lelel = my_malloc(sizeof(int));
+  lelel = malloc(sizeof(int));
   printf("After second malloc\t%p\n", sbrk(0));
   lel[0] = 102;
   lel[1] = 3102;
-  str = my_malloc(sizeof(char) * 4);
+  str = malloc(sizeof(char) * 4);
   printf("After third malloc\t%p\n", sbrk(0));
   str[0] = 'a';
   str[1] = 'b';
@@ -23,12 +23,21 @@ int		main(void)
   str[3] = '\0';
   *lelel = 42;
   printf("Before first free\t%p\n", sbrk(0));
-  my_free(lelel);
+  free(lelel);
   printf("After first free\t%p\n", sbrk(0));
-  my_free(str);
+  free(str);
   printf("After second free\t%p\n", sbrk(0));
   /* show_alloc_mem(); */
-  my_free(lel);
+  free(lel);
   printf("After third free\t%p\n", sbrk(0));
+
+  printf("\nBefore malloc\t\t%p\n", sbrk(0));
+  lel = malloc(sizeof(int) * 2);
+  printf("After first malloc\t%p\n", sbrk(0));
+  lel[0] = 102;
+  lel[1] = 3102;
+  printf("Before first free\t%p\n", sbrk(0));
+  free(lel);
+  printf("After first free\t%p\n", sbrk(0));
   return (0);
 }

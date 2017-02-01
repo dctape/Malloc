@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Mon Jan 30 18:10:23 2017 Ronan Boiteau
+** Last update Wed Feb  1 11:00:00 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -14,32 +14,43 @@
 
 t_chunk		*heap_start = NULL;
 
-void		*my_realloc(void *ptr, size_t size)
+/* void		chunkcpy(t_chunk *dest, t_chunk *src) */
+/* { */
+/*   return ; */
+/* } */
+
+void		*realloc(void *ptr, size_t size)
 {
-  (void)ptr;
-  (void)size;
-  return (NULL);
+  void		*new;
+
+  /* check if we can merge with neighboors instead of re-malloc-ing a chunk */
+  new = malloc(size);
+  if (ptr == NULL)
+    return (new);
+  /* chunkcpy(new, ptr); */
+  free(ptr);
+  return (new);
 }
 
-void		show_alloc_mem()
-{
-  t_chunk	*tmp;
+/* void		show_alloc_mem() */
+/* { */
+/*   t_chunk	*tmp; */
 
-  printf("break : %p\n", sbrk(0));
-  tmp = heap_start;
-  while (tmp != NULL)
-    {
-      if (tmp->is_free == false)
-	printf("%p - %p : %zu bytes\n", tmp->address,
-	       tmp->address + tmp->size, tmp->size); /* that addition though */
-      else
-	{
-	  printf("FREE BLOCK\n");
-	  printf("%p\n", tmp);
-	}
-      tmp = tmp->next;
-    }
-}
+/*   printf("break : %p\n", sbrk(0)); */
+/*   tmp = heap_start; */
+/*   while (tmp != NULL) */
+/*     { */
+/*       if (tmp->is_free == false) */
+/* 	printf("%p - %p : %zu bytes\n", tmp->address, */
+/* 	       tmp->address + tmp->size, tmp->size); /\* that addition though *\/ */
+/*       else */
+/* 	{ */
+/* 	  printf("FREE BLOCK\n"); */
+/* 	  printf("%p\n", tmp); */
+/* 	} */
+/*       tmp = tmp->next; */
+/*     } */
+/* } */
 
 /*
 ** Free the mem chunk given as parameter
@@ -71,21 +82,23 @@ void		free_this_chunk(t_chunk *tmp)
     {
       if (tmp->prev != NULL)
 	tmp->prev->next = NULL;
+      else
+	heap_start = NULL;
       sbrk((tmp->size + tmp->node_size) * -1);
     }
 }
 
-void		my_free(void *ptr)
+void		free(void *ptr)
 {
   t_chunk	*tmp;
 
   tmp = heap_start;
   while (tmp != NULL)
     {
-      printf("%p vs. %p\n", tmp->address, ptr);
+      /* printf("%p vs. %p\n", tmp->address, ptr); */
       if (tmp->address == ptr)
 	{
-	  printf("Found matching chunk!\n");
+	  /* printf("Found matching chunk!\n"); */
 	  return (free_this_chunk(tmp));
 	}
       tmp = tmp->next;
@@ -149,9 +162,9 @@ void		*create_chunk(size_t const size, t_chunk *tmp)
   return (tmp->next);
 }
 
-void		*my_malloc(size_t size)
+void		*malloc(size_t size)
 {
-  t_chunk	*chunk; /* Doubly linked list that represents the memory */
+  t_chunk	*chunk; /* Doubly linked list representing the memory */
 
   if (heap_start == NULL)
     {
@@ -159,18 +172,18 @@ void		*my_malloc(size_t size)
 	return (NULL);
       return (heap_start->address);
     }
-  if ((chunk = find_free_chunk(size, heap_start)) != NULL)
-    {
-      /* USE FREE CHUNK */
-      /* resize old chunk to the requested size */
-      /* create a new chunk with the remaining mem */
-      /* no call to sbrk()! */
-    }
-  else
-    {
-      if ((chunk = create_chunk(size, heap_start)) == NULL)
-	return (NULL);
-      return (chunk->address);
-    }
+  /* if ((chunk = find_free_chunk(size, heap_start)) != NULL) */
+  /*   { */
+  /*     /\* USE FREE CHUNK *\/ */
+  /*     /\* resize old chunk to the requested size *\/ */
+  /*     /\* create a new chunk with the remaining mem *\/ */
+  /*     /\* no call to sbrk()! *\/ */
+  /*   } */
+  /* else */
+  /*   { */
+  if ((chunk = create_chunk(size, heap_start)) == NULL)
+    return (NULL);
+  return (chunk->address);
+  /* } */
   return (NULL);
 }

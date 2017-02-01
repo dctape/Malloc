@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 10:45:45 2017 Ronan Boiteau
-** Last update Mon Jan 30 17:57:01 2017 Ronan Boiteau
+** Last update Tue Jan 31 13:54:19 2017 Ronan Boiteau
 */
 
 #ifndef LIBMY_MALLOC_H_
@@ -14,10 +14,10 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
-void		my_free(void *ptr);
-void		*my_malloc(size_t size);
+void		free(void *ptr);
+void		*malloc(size_t size);
 /* void		*my_calloc(size_t size); -> très simple quand on a malloc() - à faire en bonus ?*/
-void		*my_realloc(void *ptr, size_t size);
+void		*realloc(void *ptr, size_t size);
 void		show_alloc_mem();
 
 typedef struct	s_chunk t_chunk;
@@ -25,11 +25,11 @@ typedef struct	s_chunk t_chunk;
 struct		s_chunk
 {
   t_chunk	*prev;
+  t_chunk	*next;
   bool		is_free;
-  void		*address;
   size_t	size;
   size_t	node_size;
-  t_chunk	*next;
+  void		*address;
 };
 
 #endif /* LIBMY_MALLOC_H_ */
