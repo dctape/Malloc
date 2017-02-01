@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 10:45:45 2017 Ronan Boiteau
-** Last update Tue Jan 31 13:54:19 2017 Ronan Boiteau
+** Last update Wed Feb  1 11:30:02 2017 Ronan Boiteau
 */
 
 #ifndef LIBMY_MALLOC_H_
@@ -16,7 +16,7 @@
 
 void		free(void *ptr);
 void		*malloc(size_t size);
-/* void		*my_calloc(size_t size); -> très simple quand on a malloc() - à faire en bonus ?*/
+/* void		*calloc(size_t nmemb, size_t size); -> à faire en bonus ? */
 void		*realloc(void *ptr, size_t size);
 void		show_alloc_mem();
 

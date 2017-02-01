@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Wed Feb  1 11:24:40 2017 Ronan Boiteau
+** Last update Wed Feb  1 11:30:26 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -15,7 +15,7 @@
 
 t_chunk		*heap_start = NULL;
 
-t_chunk		*find_block(t_chunk *tmp, void *ptr)
+t_chunk		*find_chunk(t_chunk *tmp, void *ptr)
 {
   while (tmp != NULL)
     {
@@ -34,8 +34,8 @@ void		*realloc(void *ptr, size_t size)
 
   /* check if we can merge with neighboors instead of re-malloc-ing a chunk */
   new_ptr = malloc(size);
-  old = find_block(heap_start, ptr);
-  new = find_block(heap_start, new_ptr);
+  old = find_chunk(heap_start, ptr);
+  new = find_chunk(heap_start, new_ptr);
   if (old == NULL || new == NULL)
     return (new_ptr);
   memcpy(new->address, old->address, old->size);
@@ -55,7 +55,7 @@ void		*realloc(void *ptr, size_t size)
 /* 	       tmp->address + tmp->size, tmp->size); /\* that addition though *\/ */
 /*       else */
 /* 	{ */
-/* 	  printf("FREE BLOCK\n"); */
+/* 	  printf("FREE CHUNK\n"); */
 /* 	  printf("%p\n", tmp); */
 /* 	} */
 /*       tmp = tmp->next; */
