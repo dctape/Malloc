@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Wed Feb  1 11:30:26 2017 Ronan Boiteau
+** Last update Wed Feb  1 12:31:58 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -26,14 +26,22 @@ t_chunk		*find_chunk(t_chunk *tmp, void *ptr)
   return (NULL);
 }
 
+void		*calloc(size_t nmemb, size_t size);
+{
+  
+}
+
 void		*realloc(void *ptr, size_t size)
 {
   void		*new_ptr;
   t_chunk	*old;
   t_chunk	*new;
 
+  /* RTFM */
   /* check if we can merge with neighboors instead of re-malloc-ing a chunk */
   new_ptr = malloc(size);
+  if (new_ptr == NULL)
+    return (NULL);
   old = find_chunk(heap_start, ptr);
   new = find_chunk(heap_start, new_ptr);
   if (old == NULL || new == NULL)
@@ -93,7 +101,7 @@ void		free_this_chunk(t_chunk *tmp)
       if (tmp->prev != NULL)
 	tmp->prev->next = NULL;
       else
-	heap_start = NULL;
+      	heap_start = NULL;
       sbrk((tmp->size + tmp->node_size) * -1);
     }
 }
@@ -102,6 +110,8 @@ void		free(void *ptr)
 {
   t_chunk	*tmp;
 
+  if (ptr == NULL)
+    return ;
   tmp = heap_start;
   while (tmp != NULL)
     {
