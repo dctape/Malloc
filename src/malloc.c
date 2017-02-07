@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Tue Feb  7 18:33:23 2017 Ronan Boiteau
+** Last update Tue Feb  7 18:54:24 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -33,14 +33,21 @@ void		*calloc(size_t nmemb, size_t size)
   return (ptr);
 }
 
-/* void		my_memcpy(void *dest, void *src, size_t n) */
-/* { */
-/*   size_t	*csrc = (size_t *)src; */
-/*   size_t	*cdest = (size_t *)dest; */
+void		my_memcpy(t_chunk *dest, t_chunk *src)
+{
+  size_t	*ptr_src;
+  size_t	*ptr_dest;
+  int		idx;
 
-/*   for (int i=0; i<n; i++) */
-/*     cdest[i] = csrc[i]; */
-/* } */
+  ptr_src = (size_t *)src->address;
+  ptr_dest = (size_t *)dest->address;
+  idx = 0;
+  while (idx * sizeof(size_t) < src->size && idx * sizeof(size_t) < dest->size)
+    {
+      ptr_dest[idx] = ptr_src[idx];
+      ++idx;
+    }
+}
 
 void		*realloc(void *ptr, size_t size)
 {
@@ -61,7 +68,7 @@ void		*realloc(void *ptr, size_t size)
   new = find_chunk(g_heap_start, new_ptr);
   if (old == NULL || new == NULL)
     return (new_ptr);
-  /* memcpy(new->address, old->address, old->size); */
+  my_memcpy(new, old);
   free(ptr);
   return (new_ptr);
 }
