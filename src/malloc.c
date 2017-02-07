@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Wed Feb  1 12:31:58 2017 Ronan Boiteau
+** Last update Tue Feb  7 11:15:32 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -26,9 +26,13 @@ t_chunk		*find_chunk(t_chunk *tmp, void *ptr)
   return (NULL);
 }
 
-void		*calloc(size_t nmemb, size_t size);
+void		*calloc(size_t nmemb, size_t size)
 {
-  
+  void		*ptr;
+
+  ptr = malloc(size * nmemb);
+  memset(ptr, 0, size * nmemb);
+  return (ptr);
 }
 
 void		*realloc(void *ptr, size_t size)
