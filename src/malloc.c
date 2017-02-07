@@ -5,15 +5,13 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Tue Feb  7 11:15:32 2017 Ronan Boiteau
+** Last update Tue Feb  7 18:33:23 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
-
-t_chunk		*heap_start = NULL;
 
 t_chunk		*find_chunk(t_chunk *tmp, void *ptr)
 {
@@ -35,6 +33,15 @@ void		*calloc(size_t nmemb, size_t size)
   return (ptr);
 }
 
+/* void		my_memcpy(void *dest, void *src, size_t n) */
+/* { */
+/*   size_t	*csrc = (size_t *)src; */
+/*   size_t	*cdest = (size_t *)dest; */
+
+/*   for (int i=0; i<n; i++) */
+/*     cdest[i] = csrc[i]; */
+/* } */
+
 void		*realloc(void *ptr, size_t size)
 {
   void		*new_ptr;
@@ -43,14 +50,19 @@ void		*realloc(void *ptr, size_t size)
 
   /* RTFM */
   /* check if we can merge with neighboors instead of re-malloc-ing a chunk */
+  /* if (old->next != NULL && old->next->is_free == true) */
+  /*   return ; */
+  /* else if (old->prev != NULL && old->prev->is_free == true) */
+  /*   return ; */
   new_ptr = malloc(size);
   if (new_ptr == NULL)
     return (NULL);
-  old = find_chunk(heap_start, ptr);
-  new = find_chunk(heap_start, new_ptr);
+  old = find_chunk(g_heap_start, ptr);
+  new = find_chunk(g_heap_start, new_ptr);
   if (old == NULL || new == NULL)
     return (new_ptr);
-  memcpy(new->address, old->address, old->size);
+  /* memcpy(new->address, old->address, old->size); */
+  free(ptr);
   return (new_ptr);
 }
 
@@ -59,7 +71,7 @@ void		*realloc(void *ptr, size_t size)
 /*   t_chunk	*tmp; */
 
 /*   printf("break : %p\n", sbrk(0)); */
-/*   tmp = heap_start; */
+/*   tmp = g_heap_start; */
 /*   while (tmp != NULL) */
 /*     { */
 /*       if (tmp->is_free == false) */
@@ -105,7 +117,7 @@ void		free_this_chunk(t_chunk *tmp)
       if (tmp->prev != NULL)
 	tmp->prev->next = NULL;
       else
-      	heap_start = NULL;
+      	g_heap_start = NULL;
       sbrk((tmp->size + tmp->node_size) * -1);
     }
 }
@@ -116,7 +128,7 @@ void		free(void *ptr)
 
   if (ptr == NULL)
     return ;
-  tmp = heap_start;
+  tmp = g_heap_start;
   while (tmp != NULL)
     {
       /* printf("%p vs. %p\n", tmp->address, ptr); */
@@ -132,8 +144,6 @@ void		free(void *ptr)
 /*
 ** Iterates through memory searching for a free
 ** chunk that can host the new malloc
-**
-** Warning: Will be moved to another file, should not access heap_start global variable
 */
 t_chunk		*find_free_chunk(size_t const size, t_chunk *tmp)
 {
@@ -165,9 +175,6 @@ void		*init_memory_map(size_t const size)
   return (new_memory_map);
 }
 
-/*
-** Warning: Will be moved to another file, should not access heap_start global variable
-*/
 void		*create_chunk(size_t const size, t_chunk *tmp)
 {
   void		*address;
@@ -190,13 +197,13 @@ void		*malloc(size_t size)
 {
   t_chunk	*chunk; /* Doubly linked list representing the memory */
 
-  if (heap_start == NULL)
+  if (g_heap_start == NULL)
     {
-      if ((heap_start = init_memory_map(size)) == NULL)
+      if ((g_heap_start = init_memory_map(size)) == NULL)
 	return (NULL);
-      return (heap_start->address);
+      return (g_heap_start->address);
     }
-  /* if ((chunk = find_free_chunk(size, heap_start)) != NULL) */
+  /* if ((chunk = find_free_chunk(size, g_heap_start)) != NULL) */
   /*   { */
   /*     /\* USE FREE CHUNK *\/ */
   /*     /\* resize old chunk to the requested size *\/ */
@@ -205,7 +212,7 @@ void		*malloc(size_t size)
   /*   } */
   /* else */
   /*   { */
-  if ((chunk = create_chunk(size, heap_start)) == NULL)
+  if ((chunk = create_chunk(size, g_heap_start)) == NULL)
     return (NULL);
   return (chunk->address);
   /* } */
