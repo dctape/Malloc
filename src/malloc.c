@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Wed Feb  8 09:40:03 2017 Ronan Boiteau
+** Last update Wed Feb  8 11:10:33 2017 Selim Rinaz
 */
 
 #include <unistd.h>
@@ -20,6 +20,8 @@ void		*calloc(size_t nmemb, size_t size)
   void		*ptr;
 
   ptr = malloc(size * nmemb);
+  if (ptr == NULL)
+    return (NULL);
   memset(ptr, 0, size * nmemb);
   return (ptr);
 }
