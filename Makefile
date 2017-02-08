@@ -5,7 +5,7 @@
 ## Login   <ronan.boiteau@epitech.net>
 ## 
 ## Started on  Tue Jan 24 10:34:45 2017 Ronan Boiteau
-## Last update Wed Jan 25 11:15:59 2017 Ronan Boiteau
+## Last update Wed Feb  8 09:35:44 2017 Ronan Boiteau
 ##
 
 INC_DIR	= include/
@@ -22,7 +22,8 @@ RM		= rm -f
 NAME		= libmy_malloc.so
 
 SRCS_DIR	= src/
-SRCS_FILES	= malloc.c
+SRCS_FILES	= malloc.c			\
+		  tools.c
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 
 OBJS	= $(SRCS:.c=.o)

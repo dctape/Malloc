@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 10:45:45 2017 Ronan Boiteau
-** Last update Tue Feb  7 11:19:42 2017 Ronan Boiteau
+** Last update Wed Feb  8 09:40:29 2017 Ronan Boiteau
 */
 
 #ifndef LIBMY_MALLOC_H_
@@ -13,12 +13,6 @@
 
 # include <stdlib.h>
 # include <stdbool.h>
-
-void		free(void *ptr);
-void		*malloc(size_t size);
-void		*calloc(size_t nmemb, size_t size);
-void		*realloc(void *ptr, size_t size);
-void		show_alloc_mem();
 
 typedef struct	s_chunk t_chunk;
 
@@ -32,6 +26,16 @@ struct		s_chunk
   void		*address;
 };
 
-t_chunk		*g_heap_start = NULL;
+void		free(void *ptr);
+void		*malloc(size_t size);
+void		*calloc(size_t nmemb, size_t size);
+void		*realloc(void *ptr, size_t size);
+void		show_alloc_mem();
+t_chunk		*find_chunk(t_chunk *tmp, void *ptr);
+void		my_memcpy(t_chunk *dest, t_chunk *src);
+t_chunk		*free_this_chunk(t_chunk *tmp);
+t_chunk		*find_free_chunk(size_t const size, t_chunk *tmp);
+void		*init_memory_map(size_t const size);
+void		*create_chunk(size_t const size, t_chunk *tmp);
 
 #endif /* LIBMY_MALLOC_H_ */
