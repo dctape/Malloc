@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Tue Feb  7 18:54:24 2017 Ronan Boiteau
+** Last update Wed Feb  8 09:21:47 2017 Ronan Boiteau
 */
 
 #include "libmy_malloc.h"
@@ -56,6 +56,7 @@ void		*realloc(void *ptr, size_t size)
   t_chunk	*new;
 
   /* RTFM */
+  /* check if new->size < old->size */
   /* check if we can merge with neighboors instead of re-malloc-ing a chunk */
   /* if (old->next != NULL && old->next->is_free == true) */
   /*   return ; */
