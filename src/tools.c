@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Wed Feb  8 09:28:17 2017 Ronan Boiteau
-** Last update Sat Feb 11 11:50:13 2017 Ronan Boiteau
+** Last update Sat Feb 11 16:20:11 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -14,8 +14,12 @@
 
 t_chunk		*find_chunk(t_chunk *tmp, void *ptr)
 {
+  /* printf("\n---- NEW CALL ----\n"); */
+  if (ptr == NULL)
+    return (NULL);
   while (tmp != NULL)
     {
+      /* printf("%p\n", tmp); */
       if (tmp->address == ptr)
 	return (tmp);
       tmp = tmp->next;

@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sat Feb 11 11:54:03 2017 Ronan Boiteau
+** Last update Sat Feb 11 16:30:21 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -42,12 +42,12 @@ void		*realloc(void *ptr, size_t size)
   new_ptr = malloc(size);
   if (new_ptr == NULL)
     return (NULL);
-  old = find_chunk(g_heap_start, ptr);
+  old = find_chunk(g_heap_start, ptr); /* SEGFAULT WITH MOULI? */
   new = find_chunk(g_heap_start, new_ptr);
   if (old == NULL || new == NULL)
     return (new_ptr);
   my_memcpy(new, old);
-  free(ptr); /* SEGFAULT WITH MOULI */
+  free(ptr);
   return (new_ptr);
 }
 
@@ -100,16 +100,17 @@ void		*malloc(size_t size)
 	return (NULL);
       return (g_heap_start->address);
     }
-  if ((chunk = find_free_chunk(size, g_heap_start)) != NULL)
-    {
-      use_free_chunk(chunk, size);
-      return (chunk->address);
-    }
-  else
-    {
-      if ((chunk = create_chunk(size, g_heap_start)) == NULL)
-	return (NULL);
-      return (chunk->address);
-    }
+  /* SEGFAULT */
+  /* if ((chunk = find_free_chunk(size, g_heap_start)) != NULL) */
+  /*   { */
+  /*     use_free_chunk(chunk, size); */
+  /*     return (chunk->address); */
+  /*   } */
+  /* else */
+  /*   { */
+  if ((chunk = create_chunk(size, g_heap_start)) == NULL)
+    return (NULL);
+  return (chunk->address);
+    /* } */
   return (NULL);
 }
