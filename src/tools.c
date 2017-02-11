@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Wed Feb  8 09:28:17 2017 Ronan Boiteau
-** Last update Wed Feb  8 10:05:37 2017 Ronan Boiteau
+** Last update Sat Feb 11 11:50:13 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -23,12 +23,6 @@ t_chunk		*find_chunk(t_chunk *tmp, void *ptr)
   return (NULL);
 }
 
-/*
-** Free the mem chunk given as parameter
-** Freeing means:
-** - Releasing memory with sbrk() if the chunk is at the end of the mem map
-** - Setting the chunk's is_free variable to true otherwise
-*/
 t_chunk		*free_this_chunk(t_chunk *tmp)
 {
   t_chunk	*ret;
@@ -37,8 +31,7 @@ t_chunk		*free_this_chunk(t_chunk *tmp)
   tmp->is_free = true;
   while (tmp->prev != NULL && tmp->prev->is_free != false)
     {
-      tmp->prev->size += tmp->size;
-      tmp->prev->node_size += sizeof(t_chunk);
+      tmp->prev->size += tmp->size + sizeof(t_chunk);
       tmp->prev->next = tmp->next;
       if (tmp->next != NULL)
 	tmp->next->prev = tmp->prev;
@@ -46,8 +39,8 @@ t_chunk		*free_this_chunk(t_chunk *tmp)
     }
   while (tmp->next != NULL && tmp->next->is_free != false)
     {
-      tmp->size += tmp->next->size;
-      tmp->node_size += sizeof(t_chunk);
+      tmp->size += tmp->next->size + sizeof(t_chunk);
+      tmp->next->next->prev = tmp;
       tmp->next = tmp->next->next;
     }
   if (tmp->next == NULL)
@@ -61,17 +54,13 @@ t_chunk		*free_this_chunk(t_chunk *tmp)
   return (ret);
 }
 
-/*
-** Iterates through memory searching for a free
-** chunk that can host the new malloc
-*/
 t_chunk		*find_free_chunk(size_t const size, t_chunk *tmp)
 {
   if (tmp == NULL)
     return (NULL);
   while (tmp->next != NULL)
     {
-      if (tmp->is_free == true && tmp->size >= size)
+      if (tmp->is_free == true && tmp->size - sizeof(t_chunk) >= size)
 	return (tmp);
       tmp = tmp->next;
     }
@@ -111,4 +100,36 @@ void		*create_chunk(size_t const size, t_chunk *tmp)
   tmp->next->node_size = sizeof(t_chunk);
   tmp->next->address = address + sizeof(t_chunk);
   return (tmp->next);
+}
+
+void		use_free_chunk(t_chunk *chunk, size_t size)
+{
+  /* size_t	new_size; */
+  t_chunk	*new;
+
+  /* resize old chunk to the requested size */
+  /* create a new chunk with the remaining mem */
+  new = chunk->address + size;
+  new->size = chunk->size - size - sizeof(t_chunk);
+  /* new->size = chunk->size - size - sizeof(t_chunk); */
+  new->is_free = true;
+  chunk->size = size;
+  new->node_size = sizeof(t_chunk);
+  new->next = chunk->next;
+  new->prev = chunk;
+  chunk->next = new;
+  if (chunk->next != NULL)
+    chunk->next->prev = new;
+
+  new->address = new + sizeof(t_chunk);
+
+  /* new_size = chunk->size - size; */
+  /* chunk->is_free = false; */
+  /* new = chunk->address + size; */
+  /* new->next = chunk->next; */
+  /* chunk->next = new; */
+  /* chunk->size = size; */
+  /* new->is_free = true; */
+  /* new->size = new_size; */
+  /* new->node_size = sizeof(t_chunk); */
 }

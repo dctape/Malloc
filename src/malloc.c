@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Wed Feb  8 11:10:33 2017 Selim Rinaz
+** Last update Sat Feb 11 11:54:03 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -47,31 +47,29 @@ void		*realloc(void *ptr, size_t size)
   if (old == NULL || new == NULL)
     return (new_ptr);
   my_memcpy(new, old);
-  free(ptr);
+  free(ptr); /* SEGFAULT WITH MOULI */
   return (new_ptr);
 }
 
-/*
-** void		show_alloc_mem()
-** {
-**   t_chunk	*tmp;
-** 
-**   printf("break : %p\n", sbrk(0));
-**   tmp = g_heap_start;
-**   while (tmp != NULL)
-**     {
-**       if (tmp->is_free == false)
-** 	printf("%p - %p : %zu bytes\n", tmp->address,
-** 	       tmp->address + tmp->size, tmp->size);
-**       else
-** 	{
-** 	  printf("FREE CHUNK\n");
-** 	  printf("%p\n", tmp);
-** 	}
-**       tmp = tmp->next;
-**     }
-** }
-*/
+/* void		show_alloc_mem() */
+/* { */
+/*   t_chunk	*tmp; */
+
+/*   printf("break : %p\n", sbrk(0)); */
+/*   tmp = g_heap_start; */
+/*   while (tmp != NULL) */
+/*     { */
+/*       if (tmp->is_free == false) */
+/* 	printf("%p - %p : %zu bytes\n", tmp->address, */
+/* 	       tmp->address + tmp->size, tmp->size); */
+/*       else */
+/* 	{ */
+/* 	  printf("FREE CHUNK\n"); */
+/* 	  printf("%p\n", tmp); */
+/* 	} */
+/*       tmp = tmp->next; */
+/*     } */
+/* } */
 
 void		free(void *ptr)
 {
@@ -94,7 +92,7 @@ void		free(void *ptr)
 
 void		*malloc(size_t size)
 {
-  t_chunk	*chunk; /* Doubly linked list representing the memory */
+  t_chunk	*chunk;
 
   if (g_heap_start == NULL)
     {
@@ -102,18 +100,16 @@ void		*malloc(size_t size)
 	return (NULL);
       return (g_heap_start->address);
     }
-  /* if ((chunk = find_free_chunk(size, g_heap_start)) != NULL) */
-  /*   { */
-  /*     /\* USE FREE CHUNK *\/ */
-  /*     /\* resize old chunk to the requested size *\/ */
-  /*     /\* create a new chunk with the remaining mem *\/ */
-  /*     /\* no call to sbrk()! *\/ */
-  /*   } */
-  /* else */
-  /*   { */
-  if ((chunk = create_chunk(size, g_heap_start)) == NULL)
-    return (NULL);
-  return (chunk->address);
-  /* } */
+  if ((chunk = find_free_chunk(size, g_heap_start)) != NULL)
+    {
+      use_free_chunk(chunk, size);
+      return (chunk->address);
+    }
+  else
+    {
+      if ((chunk = create_chunk(size, g_heap_start)) == NULL)
+	return (NULL);
+      return (chunk->address);
+    }
   return (NULL);
 }
