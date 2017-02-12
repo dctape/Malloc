@@ -5,13 +5,14 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sun Feb 12 15:50:35 2017 Ronan Boiteau
+** Last update Sun Feb 12 17:23:28 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include "libmy_malloc.h"
+#include "my.h"
 
 t_chunk		*g_heap_start = NULL;
 
@@ -19,12 +20,12 @@ void		show_alloc_mem()
 {
   t_chunk	*tmp;
 
-  printf("break : %p\n", sbrk(0));
+  my_printf("break : %p\n", sbrk(0));
   tmp = g_heap_start;
   while (tmp != NULL)
     {
       if (tmp->is_free == false)
-	printf("%p - %p : %zu bytes\n", tmp->address,
+	my_printf("%p - %p : %u bytes\n", tmp->address,
 	       tmp->address + tmp->size, tmp->size);
       tmp = tmp->next;
     }
