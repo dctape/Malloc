@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sun Feb 12 21:39:17 2017 Ronan Boiteau
+** Last update Sun Feb 12 22:09:02 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -51,9 +51,11 @@ void		*realloc(void *ptr, size_t size)
   t_chunk	*old;
   t_chunk	*new;
 
-  new_ptr = malloc(size);
-  if (new_ptr == NULL)
-    return (NULL);
+  if ((new_ptr = malloc(size)) == NULL)
+    {
+      free(ptr);
+      return (NULL);
+    }
   old = find_chunk(g_heap_start, ptr);
   new = find_chunk(g_heap_start, new_ptr);
   if (old == NULL || new == NULL)
