@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 10:45:45 2017 Ronan Boiteau
-** Last update Wed Feb  8 14:59:49 2017 Ronan Boiteau
+** Last update Sun Feb 12 15:45:46 2017 Ronan Boiteau
 */
 
 #ifndef LIBMY_MALLOC_H_
@@ -26,11 +26,11 @@ struct		s_chunk
   void		*address;
 };
 
+void		show_alloc_mem();
 void		free(void *ptr);
 void		*malloc(size_t size);
 void		*calloc(size_t nmemb, size_t size);
 void		*realloc(void *ptr, size_t size);
-void		show_alloc_mem();
 t_chunk		*find_chunk(t_chunk *tmp, void *ptr);
 void		my_memcpy(t_chunk *dest, t_chunk *src);
 t_chunk		*free_this_chunk(t_chunk *tmp);

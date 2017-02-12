@@ -5,7 +5,7 @@
 ## Login   <ronan.boiteau@epitech.net>
 ## 
 ## Started on  Tue Jan 24 10:34:45 2017 Ronan Boiteau
-## Last update Wed Feb  8 10:05:20 2017 Ronan Boiteau
+## Last update Sun Feb 12 15:48:51 2017 Ronan Boiteau
 ##
 
 INC_DIR	= include/
@@ -13,8 +13,8 @@ INC_DIR	= include/
 CC		= gcc
 CFLAGS		+= -I $(INC_DIR)
 CFLAGS		+= -Wall -Wextra
+CFLAGS		+= -Werror
 CFLAGS		+= -fPIC
-# CFLAGS		+= -Werror
 CFLAGS		+= -g3
 
 RM		= rm -f

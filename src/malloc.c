@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sun Feb 12 15:01:14 2017 Ronan Boiteau
+** Last update Sun Feb 12 15:50:35 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -14,6 +14,21 @@
 #include "libmy_malloc.h"
 
 t_chunk		*g_heap_start = NULL;
+
+void		show_alloc_mem()
+{
+  t_chunk	*tmp;
+
+  printf("break : %p\n", sbrk(0));
+  tmp = g_heap_start;
+  while (tmp != NULL)
+    {
+      if (tmp->is_free == false)
+	printf("%p - %p : %zu bytes\n", tmp->address,
+	       tmp->address + tmp->size, tmp->size);
+      tmp = tmp->next;
+    }
+}
 
 void		*calloc(size_t nmemb, size_t size)
 {
@@ -50,26 +65,6 @@ void		*realloc(void *ptr, size_t size)
   free(ptr);
   return (new_ptr);
 }
-
-/* void		show_alloc_mem() */
-/* { */
-/*   t_chunk	*tmp; */
-
-/*   printf("break : %p\n", sbrk(0)); */
-/*   tmp = g_heap_start; */
-/*   while (tmp != NULL) */
-/*     { */
-/*       if (tmp->is_free == false) */
-/* 	printf("%p - %p : %zu bytes\n", tmp->address, */
-/* 	       tmp->address + tmp->size, tmp->size); */
-/*       else */
-/* 	{ */
-/* 	  printf("FREE CHUNK\n"); */
-/* 	  printf("%p\n", tmp); */
-/* 	} */
-/*       tmp = tmp->next; */
-/*     } */
-/* } */
 
 void		free(void *ptr)
 {

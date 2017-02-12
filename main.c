@@ -28,16 +28,10 @@ int		main(void)
   printf("After first free\t%p\n", sbrk(0));
   free(lel);
   printf("After second free\t%p\n", sbrk(0));
-  /* show_alloc_mem(); */
+  show_alloc_mem();
   mdr = malloc(sizeof(int));
   *mdr = 1;
-  free(mdr);
-  write(1, "mdr\n", 4);
-  free(str);
-  write(1, "str\n", 4);
-  printf("After third free\t%p\n", sbrk(0));
-
-  printf("\nBefore malloc\t\t%p\n", sbrk(0));
+  printf("Before malloc\t\t%p\n", sbrk(0));
   lel = malloc(sizeof(int) * 2);
   printf("After first malloc\t%p\n", sbrk(0));
   lel[0] = 102;
@@ -51,5 +45,8 @@ int		main(void)
   printf("Before first free\t%p\n", sbrk(0));
   free(lel);
   printf("After first free\t%p\n", sbrk(0));
+  free(mdr);
+  free(str);
+  printf("After third free\t%p\n", sbrk(0));
   return (0);
 }

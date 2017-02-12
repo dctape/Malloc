@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Wed Feb  8 09:28:17 2017 Ronan Boiteau
-** Last update Sun Feb 12 15:33:49 2017 Ronan Boiteau
+** Last update Sun Feb 12 15:49:01 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -64,8 +64,8 @@ t_chunk		*find_free_chunk(size_t const size, t_chunk *tmp)
     return (NULL);
   while (tmp->next != NULL)
     {
-      /* if (tmp->is_free == true && tmp->size - sizeof(t_chunk) >= size) */
-      if (tmp->is_free == true && tmp->size >= size)
+      /* if (tmp->is_free == true && size <= tmp->size - sizeof(t_chunk)) */
+      if (tmp->is_free == true && size <= tmp->size)
 	return (tmp);
       tmp = tmp->next;
     }
