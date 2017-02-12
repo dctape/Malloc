@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sat Feb 11 16:30:21 2017 Ronan Boiteau
+** Last update Sun Feb 12 15:01:14 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -100,17 +100,17 @@ void		*malloc(size_t size)
 	return (NULL);
       return (g_heap_start->address);
     }
-  /* SEGFAULT */
-  /* if ((chunk = find_free_chunk(size, g_heap_start)) != NULL) */
-  /*   { */
-  /*     use_free_chunk(chunk, size); */
-  /*     return (chunk->address); */
-  /*   } */
-  /* else */
-  /*   { */
-  if ((chunk = create_chunk(size, g_heap_start)) == NULL)
-    return (NULL);
-  return (chunk->address);
-    /* } */
+  if ((chunk = find_free_chunk(size, g_heap_start)) != NULL)
+    {
+      /* use_free_chunk(chunk, size); */
+      chunk->is_free = false;
+      return (chunk->address);
+    }
+  else
+    {
+      if ((chunk = create_chunk(size, g_heap_start)) == NULL)
+	return (NULL);
+      return (chunk->address);
+    }
   return (NULL);
 }
