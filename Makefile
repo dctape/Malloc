@@ -5,10 +5,10 @@
 ## Login   <ronan.boiteau@epitech.net>
 ## 
 ## Started on  Tue Jan 24 10:34:45 2017 Ronan Boiteau
-## Last update Sun Feb 12 23:40:25 2017 Ronan Boiteau
+## Last update Sun Feb 12 23:41:46 2017 Ronan Boiteau
 ##
 
-INC_DIR	= include/
+INC_DIR		= include/
 
 CC		= gcc
 CFLAGS		+= -I $(INC_DIR)
@@ -43,7 +43,7 @@ SRCS_FILES	= malloc.c				\
 		  my_printf/my_showstr.c
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 
-OBJS	= $(SRCS:.c=.o)
+OBJS		= $(SRCS:.c=.o)
 
 
 all: $(NAME)

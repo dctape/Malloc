@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 10:45:45 2017 Ronan Boiteau
-** Last update Sun Feb 12 22:54:49 2017 Ronan Boiteau
+** Last update Sun Feb 12 23:41:10 2017 Ronan Boiteau
 */
 
 #ifndef LIBMY_MALLOC_H_
@@ -38,4 +38,4 @@ void		*init_memory_map(size_t const size);
 void		*create_chunk(size_t const size, t_chunk *tmp);
 void		use_free_chunk(t_chunk *chunk, size_t size);
 
-#endif /* LIBMY_MALLOC_H_ */
+#endif /* !LIBMY_MALLOC_H_ */
