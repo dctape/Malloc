@@ -1,11 +1,11 @@
 /*
-** my_showstr.c for my_showstr in /home/boitea_r
+** my_showstr.c for malloc in /home/ronan/rendu/PSU_2016_malloc
 ** 
 ** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
+** Login   <ronan.boiteau@epitech.net>
 ** 
-** Started on  Mon Oct 19 00:11:18 2015 Ronan Boiteau
-** Last update Tue Apr 12 23:22:28 2016 Ronan Boiteau
+** Started on  Sun Feb 12 21:44:50 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:44:51 2017 Ronan Boiteau
 */
 
 #include <stdlib.h>

@@ -1,11 +1,11 @@
 /*
-** my_char_isprintable.c for my_char_isprintable in /home/boitea_r
+** my_char_isprintable.c for malloc in /home/ronan/rendu/PSU_2016_malloc
 ** 
 ** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
+** Login   <ronan.boiteau@epitech.net>
 ** 
-** Started on  Sun Oct 18 19:11:26 2015 Ronan Boiteau
-** Last update Sun Feb 12 17:19:44 2017 Ronan Boiteau
+** Started on  Sun Feb 12 21:44:16 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:44:16 2017 Ronan Boiteau
 */
 
 #include <stdbool.h>

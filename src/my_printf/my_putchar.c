@@ -1,11 +1,11 @@
 /*
-** my_putchar.c for my_putchar in /home/boitea_r
+** my_putchar.c for malloc in /home/ronan/rendu/PSU_2016_malloc
 ** 
 ** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
+** Login   <ronan.boiteau@epitech.net>
 ** 
-** Started on  Tue Oct  6 09:33:09 2015 Ronan Boiteau
-** Last update Tue Apr 12 23:22:17 2016 Ronan Boiteau
+** Started on  Sun Feb 12 21:48:42 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:48:45 2017 Ronan Boiteau
 */
 
 #include <unistd.h>

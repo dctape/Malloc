@@ -1,11 +1,11 @@
 /*
-** flag_str.c for my_printf in /home/boitea_r
+** flag_str.c for malloc in /home/ronan/rendu/PSU_2016_malloc
 ** 
 ** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
+** Login   <ronan.boiteau@epitech.net>
 ** 
-** Started on  Sat Nov  7 04:20:05 2015 Ronan Boiteau
-** Last update Tue Apr 12 23:22:07 2016 Ronan Boiteau
+** Started on  Sun Feb 12 21:46:48 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:46:54 2017 Ronan Boiteau
 */
 
 #include <stdlib.h>
@@ -13,13 +13,13 @@
 #include "printf_flags.h"
 #include "printf_puts.h"
 
-t_uint		_print_str(int fd, t_uint printed, va_list ap)
+t_uint		print_str(int fd, t_uint printed, va_list ap)
 {
   printed += my_putstr_fd(fd, va_arg(ap, const char *));
   return (printed);
 }
 
-t_uint		_str_non_printable(int fd, t_uint printed, va_list ap)
+t_uint		str_non_printable(int fd, t_uint printed, va_list ap)
 {
   t_uint	idx;
   char		*str;

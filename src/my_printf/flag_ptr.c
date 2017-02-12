@@ -1,11 +1,11 @@
 /*
-** flag_ptr.c for my_printf in /home/boitea_r
+** flag_ptr.c for malloc in /home/ronan/rendu/PSU_2016_malloc
 ** 
 ** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
+** Login   <ronan.boiteau@epitech.net>
 ** 
-** Started on  Sat Nov  7 18:02:00 2015 Ronan Boiteau
-** Last update Tue Apr 12 23:22:04 2016 Ronan Boiteau
+** Started on  Sun Feb 12 21:46:38 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:46:44 2017 Ronan Boiteau
 */
 
 #include <stdlib.h>
@@ -13,7 +13,7 @@
 #include "printf_flags.h"
 #include "printf_puts.h"
 
-t_uint		_ptr_to_hex(int fd, t_uint printed, va_list ap)
+t_uint		ptr_to_hex(int fd, t_uint printed, va_list ap)
 {
   int		*ptr;
 
@@ -28,7 +28,7 @@ t_uint		_ptr_to_hex(int fd, t_uint printed, va_list ap)
   return (printed);
 }
 
-t_uint		_ptr_printed_chars(int fd, t_uint printed, va_list ap)
+t_uint		ptr_printed_chars(int fd, t_uint printed, va_list ap)
 {
   int		*ptr;
 

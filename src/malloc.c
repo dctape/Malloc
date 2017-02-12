@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sun Feb 12 21:33:26 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:39:17 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -24,7 +24,7 @@ void		show_alloc_mem()
     {
       if (tmp->is_free == false)
 	my_printf("%p - %p : %u bytes\n", tmp->address,
-	       tmp->address + tmp->size, tmp->size);
+		  tmp->address + tmp->size, tmp->size);
       tmp = tmp->next;
     }
 }
@@ -51,7 +51,6 @@ void		*realloc(void *ptr, size_t size)
   t_chunk	*old;
   t_chunk	*new;
 
-  /* if old_size < size */
   new_ptr = malloc(size);
   if (new_ptr == NULL)
     return (NULL);

@@ -1,11 +1,11 @@
 /*
-** my_put_nbr.c for my_put_nbr.c in /home/boitea_r
+** my_put_nbr.c for malloc in /home/ronan/rendu/PSU_2016_malloc
 ** 
 ** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
+** Login   <ronan.boiteau@epitech.net>
 ** 
-** Started on  Tue Oct  6 09:33:53 2015 Ronan Boiteau
-** Last update Sun Jan 17 16:25:04 2016 Ronan Boiteau
+** Started on  Sun Feb 12 21:48:56 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:48:56 2017 Ronan Boiteau
 */
 
 #include "my.h"

@@ -1,11 +1,11 @@
 /*
-** my_putnbr_base.c for my_putnbr_base in /home/boitea_r
+** my_putnbr_base.c for malloc in /home/ronan/rendu/PSU_2016_malloc
 ** 
 ** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
+** Login   <ronan.boiteau@epitech.net>
 ** 
-** Started on  Mon Oct 19 00:17:18 2015 Ronan Boiteau
-** Last update Wed Jan 27 14:29:40 2016 Ronan Boiteau
+** Started on  Sun Feb 12 21:48:49 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:48:49 2017 Ronan Boiteau
 */
 
 #include "my.h"

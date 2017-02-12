@@ -1,18 +1,18 @@
 /*
-** flag_int.c for my_printf in /home/boitea_r
+** flag_int.c for malloc in /home/ronan/rendu/PSU_2016_malloc
 ** 
 ** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
+** Login   <ronan.boiteau@epitech.net>
 ** 
-** Started on  Sat Nov  7 04:20:32 2015 Ronan Boiteau
-** Last update Sun Jan 17 16:23:45 2016 Ronan Boiteau
+** Started on  Sun Feb 12 21:46:32 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:46:34 2017 Ronan Boiteau
 */
 
 #include "my.h"
 #include "printf_flags.h"
 #include "printf_puts.h"
 
-t_uint	_print_int(int fd, t_uint printed, va_list ap)
+t_uint	print_int(int fd, t_uint printed, va_list ap)
 {
   printed += my_putnbr_printf(fd, va_arg(ap, int));
   return (printed);

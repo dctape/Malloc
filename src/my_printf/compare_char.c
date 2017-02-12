@@ -1,18 +1,18 @@
 /*
-** compare_char.c for my_printf in /home/boitea_r
+** compare_char.c for malloc in /home/ronan/rendu/PSU_2016_malloc
 ** 
 ** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
+** Login   <ronan.boiteau@epitech.net>
 ** 
-** Started on  Sat Nov 14 08:22:26 2015 Ronan Boiteau
-** Last update Sun Feb 12 17:20:16 2017 Ronan Boiteau
+** Started on  Sun Feb 12 21:45:13 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:45:13 2017 Ronan Boiteau
 */
 
 #include <stdbool.h>
 #include "my.h"
 #include "printf_flags.h"
 
-int		_char_isflag(const char letter, const t_flag *flags)
+int		char_isflag(const char letter, const t_flag *flags)
 {
   int		idx;
 
@@ -26,7 +26,7 @@ int		_char_isflag(const char letter, const t_flag *flags)
   return (-1);
 }
 
-int		_char_isletter(const char letter)
+int		char_isletter(const char letter)
 {
   if ((letter >= 'a' && letter <= 'z') ||
       (letter >= 'A' && letter <= 'Z') ||

@@ -1,11 +1,11 @@
 /*
-** my_strlen.c for my_strlen in /home/boitea_r
+** my_strlen.c for malloc in /home/ronan/rendu/PSU_2016_malloc
 ** 
 ** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
+** Login   <ronan.boiteau@epitech.net>
 ** 
-** Started on  Mon Oct  5 02:49:33 2015 Ronan Boiteau
-** Last update Mon Jan 18 21:02:25 2016 Ronan Boiteau
+** Started on  Sun Feb 12 21:44:32 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:44:32 2017 Ronan Boiteau
 */
 
 #include <stdlib.h>
