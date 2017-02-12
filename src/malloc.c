@@ -5,12 +5,11 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sun Feb 12 18:00:23 2017 Ronan Boiteau
+** Last update Sun Feb 12 18:27:37 2017 Ronan Boiteau
 */
 
 #include <string.h>
 #include <unistd.h>
-#include <stdio.h>
 #include "libmy_malloc.h"
 #include "my.h"
 
@@ -35,8 +34,7 @@ void		*calloc(size_t nmemb, size_t size)
 {
   void		*ptr;
 
-  ptr = malloc(size * nmemb);
-  if (ptr == NULL)
+  if ((ptr = malloc(size * nmemb)) == NULL)
     return (NULL);
   memset(ptr, 0, size * nmemb);
   return (ptr);
@@ -48,13 +46,7 @@ void		*realloc(void *ptr, size_t size)
   t_chunk	*old;
   t_chunk	*new;
 
-  /* RTFM */
-  /* check if new->size < old->size */
-  /* check if we can merge with neighboors instead of re-malloc-ing a chunk */
-  /* if (old->next != NULL && old->next->is_free == true) */
-  /*   return ; */
-  /* else if (old->prev != NULL && old->prev->is_free == true) */
-  /*   return ; */
+  /* if old_size < size */
   new_ptr = malloc(size);
   if (new_ptr == NULL)
     return (NULL);
@@ -90,6 +82,8 @@ void		*malloc(size_t size)
 {
   t_chunk	*chunk;
 
+  if (size == 0)
+    return (NULL);
   if (g_heap_start == NULL)
     {
       if ((g_heap_start = init_memory_map(size)) == NULL)
@@ -98,7 +92,6 @@ void		*malloc(size_t size)
     }
   if ((chunk = find_free_chunk(size, g_heap_start)) != NULL)
     {
-      /* use_free_chunk(chunk, size); */
       chunk->is_free = false;
       return (chunk->address);
     }

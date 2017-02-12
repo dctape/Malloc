@@ -5,7 +5,7 @@
 ## Login   <ronan.boiteau@epitech.net>
 ## 
 ## Started on  Tue Jan 24 10:34:45 2017 Ronan Boiteau
-## Last update Sun Feb 12 17:27:36 2017 Ronan Boiteau
+## Last update Sun Feb 12 18:25:33 2017 Ronan Boiteau
 ##
 
 INC_DIR	= include/
@@ -15,7 +15,6 @@ CFLAGS		+= -I $(INC_DIR)
 CFLAGS		+= -Wall -Wextra
 # CFLAGS		+= -Werror
 CFLAGS		+= -fPIC
-CFLAGS		+= -g3 # REMOVE THIS
 
 RM		= rm -f
 
@@ -23,6 +22,7 @@ NAME		= libmy_malloc.so
 
 SRCS_DIR	= src/
 SRCS_FILES	= malloc.c				\
+		  find_chunk.c				\
 		  my_memcpy.c				\
 		  tools.c				\
 		  my_strlen.c				\

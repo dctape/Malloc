@@ -5,26 +5,21 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Wed Feb  8 09:28:17 2017 Ronan Boiteau
-** Last update Sun Feb 12 16:49:19 2017 Ronan Boiteau
+** Last update Sun Feb 12 18:30:58 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "libmy_malloc.h"
 
-t_chunk		*find_chunk(t_chunk *tmp, void *ptr)
+static t_chunk	*free_last_chunk(t_chunk *tmp, t_chunk *ret)
 {
-  /* printf("\n---- NEW CALL ----\n"); */
-  if (ptr == NULL)
-    return (NULL);
-  while (tmp != NULL)
-    {
-      /* printf("%p\n", tmp); */
-      if (tmp->address == ptr)
-	return (tmp);
-      tmp = tmp->next;
-    }
-  return (NULL);
+  if (tmp->prev != NULL)
+    tmp->prev->next = NULL;
+  else
+    ret = NULL;
+  sbrk((tmp->size + tmp->node_size) * -1);
+  return (ret);
 }
 
 t_chunk		*free_this_chunk(t_chunk *tmp)
@@ -48,13 +43,7 @@ t_chunk		*free_this_chunk(t_chunk *tmp)
       tmp->next = tmp->next->next;
     }
   if (tmp->next == NULL)
-    {
-      if (tmp->prev != NULL)
-	tmp->prev->next = NULL;
-      else
-      	ret = NULL;
-      sbrk((tmp->size + tmp->node_size) * -1);
-    }
+    ret = free_last_chunk(tmp, ret);
   return (ret);
 }
 
@@ -64,7 +53,6 @@ t_chunk		*find_free_chunk(size_t const size, t_chunk *tmp)
     return (NULL);
   while (tmp->next != NULL)
     {
-      /* if (tmp->is_free == true && size <= tmp->size - sizeof(t_chunk)) */
       if (tmp->is_free == true && size <= tmp->size)
 	return (tmp);
       tmp = tmp->next;
@@ -105,26 +93,4 @@ void		*create_chunk(size_t const size, t_chunk *tmp)
   tmp->next->node_size = sizeof(t_chunk);
   tmp->next->address = address + sizeof(t_chunk);
   return (tmp->next);
-}
-
-void		use_free_chunk(t_chunk *chunk, size_t size)
-{
-  /* size_t	new_size; */
-  t_chunk	*new;
-
-  /* resize old chunk to the requested size */
-  /* create a new chunk with the remaining mem */
-  new = chunk->address + size;
-  new->size = chunk->size - size - sizeof(t_chunk);
-  /* new->size = chunk->size - size - sizeof(t_chunk); */
-  new->is_free = true;
-  chunk->size = size;
-  new->node_size = sizeof(t_chunk);
-  new->next = chunk->next;
-  new->prev = chunk;
-  chunk->next = new;
-  if (chunk->next != NULL)
-    chunk->next->prev = new;
-
-  new->address = new + sizeof(t_chunk);
 }
