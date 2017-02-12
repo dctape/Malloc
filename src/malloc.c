@@ -5,12 +5,12 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sun Feb 12 17:23:28 2017 Ronan Boiteau
+** Last update Sun Feb 12 18:00:23 2017 Ronan Boiteau
 */
 
+#include <string.h>
 #include <unistd.h>
 #include <stdio.h>
-#include <string.h>
 #include "libmy_malloc.h"
 #include "my.h"
 
@@ -58,7 +58,7 @@ void		*realloc(void *ptr, size_t size)
   new_ptr = malloc(size);
   if (new_ptr == NULL)
     return (NULL);
-  old = find_chunk(g_heap_start, ptr); /* SEGFAULT WITH MOULI? */
+  old = find_chunk(g_heap_start, ptr);
   new = find_chunk(g_heap_start, new_ptr);
   if (old == NULL || new == NULL)
     return (new_ptr);
