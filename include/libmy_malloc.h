@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 10:45:45 2017 Ronan Boiteau
-** Last update Sun Feb 12 18:38:54 2017 Ronan Boiteau
+** Last update Sun Feb 12 22:54:49 2017 Ronan Boiteau
 */
 
 #ifndef LIBMY_MALLOC_H_
@@ -22,7 +22,6 @@ struct		s_chunk
   t_chunk	*next;
   bool		is_free;
   size_t	size;
-  size_t	node_size;
   void		*address;
 };
 

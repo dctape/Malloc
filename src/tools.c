@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Wed Feb  8 09:28:17 2017 Ronan Boiteau
-** Last update Sun Feb 12 18:30:58 2017 Ronan Boiteau
+** Last update Sun Feb 12 22:55:12 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -18,7 +18,7 @@ static t_chunk	*free_last_chunk(t_chunk *tmp, t_chunk *ret)
     tmp->prev->next = NULL;
   else
     ret = NULL;
-  sbrk((tmp->size + tmp->node_size) * -1);
+  sbrk((tmp->size + sizeof(t_chunk)) * -1);
   return (ret);
 }
 
@@ -72,7 +72,6 @@ void		*init_memory_map(size_t const size)
   new_memory_map->prev = NULL;
   new_memory_map->next = NULL;
   new_memory_map->size = size;
-  new_memory_map->node_size = sizeof(t_chunk);
   new_memory_map->address = address + sizeof(t_chunk);
   return (new_memory_map);
 }
@@ -90,7 +89,6 @@ void		*create_chunk(size_t const size, t_chunk *tmp)
   tmp->next->prev = tmp;
   tmp->next->next = NULL;
   tmp->next->size = size;
-  tmp->next->node_size = sizeof(t_chunk);
   tmp->next->address = address + sizeof(t_chunk);
   return (tmp->next);
 }

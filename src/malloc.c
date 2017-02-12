@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sun Feb 12 22:09:02 2017 Ronan Boiteau
+** Last update Sun Feb 12 22:16:26 2017 Ronan Boiteau
 */
 
 #include <unistd.h>
@@ -31,7 +31,7 @@ void		show_alloc_mem()
 
 void		*calloc(size_t nmemb, size_t size)
 {
-  unsigned char	*ptr;
+  t_uchar	*ptr;
   size_t	idx;
 
   if ((ptr = malloc(size * nmemb)) == NULL)
