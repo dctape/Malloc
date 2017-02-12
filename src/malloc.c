@@ -5,10 +5,9 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sun Feb 12 18:27:37 2017 Ronan Boiteau
+** Last update Sun Feb 12 21:33:26 2017 Ronan Boiteau
 */
 
-#include <string.h>
 #include <unistd.h>
 #include "libmy_malloc.h"
 #include "my.h"
@@ -32,11 +31,17 @@ void		show_alloc_mem()
 
 void		*calloc(size_t nmemb, size_t size)
 {
-  void		*ptr;
+  unsigned char	*ptr;
+  size_t	idx;
 
   if ((ptr = malloc(size * nmemb)) == NULL)
     return (NULL);
-  memset(ptr, 0, size * nmemb);
+  idx = 0;
+  while (idx < size)
+    {
+      ptr[idx] = 0;
+      ++idx;
+    }
   return (ptr);
 }
 

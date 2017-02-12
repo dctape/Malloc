@@ -5,7 +5,7 @@
 ** Login   <ronan.boiteau@epitech.net>
 ** 
 ** Started on  Tue Jan 24 10:45:45 2017 Ronan Boiteau
-** Last update Sun Feb 12 15:45:46 2017 Ronan Boiteau
+** Last update Sun Feb 12 18:38:54 2017 Ronan Boiteau
 */
 
 #ifndef LIBMY_MALLOC_H_

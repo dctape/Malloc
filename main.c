@@ -32,14 +32,13 @@ int		main(void)
   mdr = malloc(sizeof(int));
   *mdr = 1;
   printf("Before malloc\t\t%p\n", sbrk(0));
-  lel = malloc(sizeof(int) * 2);
-  printf("After first malloc\t%p\n", sbrk(0));
-  lel[0] = 102;
-  lel[1] = 3102;
+  lel = calloc(sizeof(int), 2);
+  printf("After first calloc\t%p\n", sbrk(0));
+  lel[1] = 3042;
   printf("%i - %i\n", lel[0], lel[1]);
   lel = realloc(lel, sizeof(int) * 4);
   printf("After first realloc\t%p\n", sbrk(0));
-  lel[2] = 42;
+  lel[2] = 4232;
   lel[3] = 42;
   printf("%i - %i - %i - %i\n", lel[0], lel[1], lel[2], lel[3]);
   printf("Before first free\t%p\n", sbrk(0));
