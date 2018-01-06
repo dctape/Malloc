@@ -1,19 +1,8 @@
-##
-## Makefile for malloc in /home/ronan/rendu/PSU_2016_malloc
-## 
-## Made by Ronan Boiteau
-## Login   <ronan.boiteau@epitech.net>
-## 
-## Started on  Tue Jan 24 10:34:45 2017 Ronan Boiteau
-## Last update Sun Feb 12 23:41:46 2017 Ronan Boiteau
-##
-
 INC_DIR		= include/
 
 CC		= gcc
 CFLAGS		+= -I $(INC_DIR)
-CFLAGS		+= -Wall -Wextra
-CFLAGS		+= -Werror
+CFLAGS		+= -Wall -Wextra -Werror -Wno-deprecated
 CFLAGS		+= -fPIC
 
 RM		= rm -f
