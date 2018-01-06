@@ -3,10 +3,10 @@
 {EPITECH.} second year project.
 
 Recoding [C memory-allocation functions](https://en.wikipedia.org/wiki/C_dynamic_memory_allocation#Overview_of_functions):
- - malloc()
- - free()
- - calloc()
- - realloc()
+ - `malloc()`
+ - `free()`
+ - `calloc()`
+ - `realloc()`
 
 ## Requirements
 
