@@ -1,13 +1,3 @@
-/*
-** printf_flags.h for my_printf in /home/boitea_r/c/lib/my/src
-**
-** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
-**
-** Started on  Fri Dec  4 22:35:02 2015 Ronan Boiteau
-** Last update Sun Feb 12 21:50:27 2017 Ronan Boiteau
-*/
-
 #ifndef PRINTF_FLAGS_H_
 # define PRINTF_FLAGS_H_
 

@@ -1,13 +1,3 @@
-/*
-** flag_uint.c for malloc in /home/ronan/rendu/PSU_2016_malloc
-** 
-** Made by Ronan Boiteau
-** Login   <ronan.boiteau@epitech.net>
-** 
-** Started on  Sun Feb 12 21:47:10 2017 Ronan Boiteau
-** Last update Sun Feb 12 21:47:18 2017 Ronan Boiteau
-*/
-
 #include "my.h"
 #include "printf_flags.h"
 #include "printf_puts.h"

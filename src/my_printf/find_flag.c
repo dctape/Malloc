@@ -1,13 +1,3 @@
-/*
-** find_flag.c for malloc in /home/ronan/rendu/PSU_2016_malloc
-** 
-** Made by Ronan Boiteau
-** Login   <ronan.boiteau@epitech.net>
-** 
-** Started on  Sun Feb 12 21:45:27 2017 Ronan Boiteau
-** Last update Sun Feb 12 21:50:40 2017 Ronan Boiteau
-*/
-
 #include <stdlib.h>
 #include "my.h"
 #include "printf_flags.h"

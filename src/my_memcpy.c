@@ -1,13 +1,3 @@
-/*
-** my_memcpy.c for my_memcpy in /home/ronan/rendu/PSU_2016_malloc
-** 
-** Made by Ronan Boiteau
-** Login   <ronan.boiteau@epitech.net>
-** 
-** Started on  Wed Feb  8 10:04:48 2017 Ronan Boiteau
-** Last update Wed Feb  8 10:05:39 2017 Ronan Boiteau
-*/
-
 #include "libmy_malloc.h"
 
 void		my_memcpy(t_chunk *dest, t_chunk *src)

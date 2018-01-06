@@ -1,13 +1,3 @@
-/*
-** libmy_malloc.h for malloc in /home/ronan/rendu/PSU_2016_malloc
-** 
-** Made by Ronan Boiteau
-** Login   <ronan.boiteau@epitech.net>
-** 
-** Started on  Tue Jan 24 10:45:45 2017 Ronan Boiteau
-** Last update Sun Feb 12 23:41:10 2017 Ronan Boiteau
-*/
-
 #ifndef LIBMY_MALLOC_H_
 # define LIBMY_MALLOC_H_
 

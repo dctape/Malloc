@@ -1,13 +1,3 @@
-/*
-** my_printf.c for malloc in /home/ronan/rendu/PSU_2016_malloc
-** 
-** Made by Ronan Boiteau
-** Login   <ronan.boiteau@epitech.net>
-** 
-** Started on  Sun Feb 12 21:47:49 2017 Ronan Boiteau
-** Last update Sun Feb 12 21:48:38 2017 Ronan Boiteau
-*/
-
 #include <stdbool.h>
 #include <stdlib.h>
 #include "my.h"

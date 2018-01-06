@@ -1,13 +1,3 @@
-/*
-** init.c for malloc in /home/ronan/rendu/PSU_2016_malloc
-** 
-** Made by Ronan Boiteau
-** Login   <ronan.boiteau@epitech.net>
-** 
-** Started on  Sun Feb 12 21:47:23 2017 Ronan Boiteau
-** Last update Sun Feb 12 21:49:46 2017 Ronan Boiteau
-*/
-
 #include "printf_flags.h"
 
 int		init_flag(char flag_char,

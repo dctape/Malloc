@@ -1,13 +1,3 @@
-/*
-** flag_ptr.c for malloc in /home/ronan/rendu/PSU_2016_malloc
-** 
-** Made by Ronan Boiteau
-** Login   <ronan.boiteau@epitech.net>
-** 
-** Started on  Sun Feb 12 21:46:38 2017 Ronan Boiteau
-** Last update Sun Feb 12 21:46:44 2017 Ronan Boiteau
-*/
-
 #include <stdlib.h>
 #include "my.h"
 #include "printf_flags.h"

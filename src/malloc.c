@@ -1,13 +1,3 @@
-/*
-** malloc.c for malloc in /home/ronan/rendu/PSU_2016_malloc
-** 
-** Made by Ronan Boiteau
-** Login   <ronan.boiteau@epitech.net>
-** 
-** Started on  Tue Jan 24 11:12:34 2017 Ronan Boiteau
-** Last update Sun Feb 12 22:16:26 2017 Ronan Boiteau
-*/
-
 #include <unistd.h>
 #include "libmy_malloc.h"
 #include "my.h"
